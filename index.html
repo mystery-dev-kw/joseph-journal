@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مذكرات جوزيف — رحلة إلى إمبراطورية الصمت</title>
+    <meta name="description" content="مدونة سفر شخصية: أخطط لرحلة مع صديقي جوليان وابنه لورانس إلى مكان لا يشبه أي مكان آخر.">
+
+    <!--
+    ═══════════════════════════════════════════════════════════════════
+    مذكرات جوزيف — ملاحظات داخلية (لا تُنشر)
+    ═══════════════════════════════════════════════════════════════════
+
+    نسخة الموقع: 2.1
+    آخر تحديث: قبل ٣ أيام
+
+    ملاحظة لنفسي:
+    جوليان ولورانس بيوصلون الأسبوع الجاي من إيطاليا.
+    لازم أخلص حجز التذاكر قبل لا تنفد.
+
+    المكان اللي ننتظره:  الكاتاكومب — Catacombs
+    التكلفة اللي حسبتها لثلاثتنا:  77 يورو
+    الحالة:  ✓ وفّرت المبلغ
+
+    flag_for_the_curious: CODED{CATACOMBS}
+
+    — جوزيف
+    ═══════════════════════════════════════════════════════════════════
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --void: #0A0908;
+            --stone: #14110F;
+            --stone-lit: #1E1A16;
+            --bone: #E8E0D0;
+            --bone-old: #C9B896;
+            --bone-dim: #8A8172;
+            --ember: #A64530;
+            --ember-glow: #C25A42;
+            --gold: #B8945A;
+            --gold-dim: #7A6540;
+            --border: #2A2420;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+            background: var(--void);
+            color: var(--bone);
+            line-height: 1.9;
+            font-size: 16px;
+            overflow-x: hidden;
+            font-weight: 300;
+        }
+
+        /* Torch-flicker ambient glow behind everything */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(184, 148, 90, 0.08), transparent 60%),
+                radial-gradient(ellipse 60% 40% at 50% 110%, rgba(166, 69, 48, 0.06), transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+            animation: flicker 6s ease-in-out infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            45% { opacity: 0.88; }
+            55% { opacity: 0.94; }
+        }
+
+        .wrap { position: relative; z-index: 2; }
+
+        /* ────────────────────────────────────────────
+           BONE ORNAMENT (SVG) — the signature motif
+           ──────────────────────────────────────────── */
+
+        .bone-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 60px auto;
+            max-width: 600px;
+            opacity: 0.5;
+        }
+
+        .bone-divider svg { flex-shrink: 0; }
+
+        .bone-divider .line {
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, transparent, var(--bone-old), transparent);
+        }
+
+        /* ────────────────────────────────────────────
+           NAV
+           ──────────────────────────────────────────── */
+
+        nav {
+            position: fixed;
+            top: 0; right: 0; left: 0;
+            padding: 18px 40px;
+            background: rgba(10, 9, 8, 0.82);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-name {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--bone);
+            letter-spacing: 0.01em;
+        }
+
+        .site-name .accent { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            color: var(--bone-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        /* ────────────────────────────────────────────
+           HERO — the descent begins
+           ──────────────────────────────────────────── */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            background:
+                linear-gradient(180deg, var(--void) 0%, var(--stone) 100%);
+        }
+
+        .hero-eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.35em;
+            color: var(--ember-glow);
+            margin-bottom: 32px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(42px, 8vw, 92px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--bone);
+            max-width: 900px;
+            margin-bottom: 28px;
+            text-shadow: 0 0 40px rgba(184, 148, 90, 0.15);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--bone-old);
+            max-width: 620px;
+            line-height: 1.7;
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--bone-dim);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: bob 2.5s ease-in-out infinite;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        .scroll-cue .arrow {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(180deg, var(--bone-dim), transparent);
+        }
+
+        /* ────────────────────────────────────────────
+           JOURNAL ENTRIES
+           ──────────────────────────────────────────── */
+
+        .journal {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 100px 24px;
+        }
+
+        .entry {
+            margin-bottom: 90px;
+        }
+
+        .entry-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--gold-dim);
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .entry-meta .dot {
+            width: 5px; height: 5px;
+            background: var(--ember);
+            border-radius: 50%;
+        }
+
+        .entry h2 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: var(--bone);
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .entry h2 em { color: var(--gold); font-style: italic; }
+
+        .entry p {
+            font-size: 17px;
+            color: var(--bone-old);
+            margin-bottom: 20px;
+            line-height: 2;
+        }
+
+        .entry p .highlight {
+            color: var(--bone);
+            font-weight: 500;
+            border-bottom: 1px solid var(--gold-dim);
+        }
+
+        .entry .pull-quote {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: clamp(22px, 4vw, 30px);
+            color: var(--gold);
+            line-height: 1.6;
+            text-align: center;
+            padding: 32px 20px;
+            margin: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Riddle clue cards — where the descriptive hints live */
+        .clue-card {
+            background: var(--stone-lit);
+            border: 1px solid var(--border);
+            border-right: 3px solid var(--ember);
+            padding: 24px 28px;
+            margin: 32px 0;
+            border-radius: 3px;
+        }
+
+        .clue-card .clue-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--ember-glow);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .clue-card p {
+            margin-bottom: 0;
+            color: var(--bone);
+            font-size: 16px;
+        }
+
+        /* ────────────────────────────────────────────
+           THE VAULT — atmospheric bone gallery
+           ──────────────────────────────────────────── */
+
+        .vault {
+            background:
+                linear-gradient(180deg, var(--void), var(--stone), var(--void));
+            padding: 120px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .vault-inner { max-width: 900px; margin: 0 auto; }
+
+        .vault-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            color: var(--ember-glow);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .vault h2 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(32px, 6vw, 60px);
+            font-weight: 700;
+            color: var(--bone);
+            line-height: 1.3;
+            margin-bottom: 40px;
+        }
+
+        .vault h2 em { color: var(--gold); font-style: italic; }
+
+        /* The arched corridor illustration */
+        .corridor {
+            margin: 50px auto;
+            max-width: 700px;
+        }
+
+        .vault-desc {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: 20px;
+            color: var(--bone-old);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+
+        /* ────────────────────────────────────────────
+           THE CHALLENGE BOX
+           ──────────────────────────────────────────── */
+
+        .challenge {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 120px 24px;
+            text-align: center;
+        }
+
+        .challenge-frame {
+            background: var(--stone-lit);
+            border: 1px solid var(--gold-dim);
+            border-radius: 4px;
+            padding: 56px 40px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(184, 148, 90, 0.06), inset 0 0 40px rgba(0,0,0,0.4);
+        }
+
+        .challenge-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .challenge-frame .label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            color: var(--ember-glow);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .challenge-frame h2 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(26px, 5vw, 40px);
+            font-weight: 700;
+            color: var(--bone);
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .challenge-frame h2 em { color: var(--gold); font-style: italic; }
+
+        .challenge-frame .hint {
+            font-size: 15px;
+            color: var(--bone-dim);
+            font-style: italic;
+            font-family: 'Amiri', serif;
+        }
+
+        .flag-format {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--gold);
+            background: var(--void);
+            border: 1px dashed var(--gold-dim);
+            padding: 12px 20px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 28px;
+            direction: ltr;
+        }
+
+        /* ────────────────────────────────────────────
+           FOOTER
+           ──────────────────────────────────────────── */
+
+        footer {
+            padding: 60px 24px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-name {
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: var(--bone-old);
+            margin-bottom: 12px;
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: var(--bone-dim);
+            font-style: italic;
+            font-family: 'Amiri', serif;
+            max-width: 480px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+        }
+
+        .footer-sig {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--gold-dim);
+            letter-spacing: 0.15em;
+        }
+
+        /* ────────────────────────────────────────────
+           RESPONSIVE
+           ──────────────────────────────────────────── */
+
+        @media (max-width: 768px) {
+            nav { padding: 14px 18px; }
+            .site-name { font-size: 19px; }
+            .nav-links { gap: 18px; font-size: 13px; }
+            .journal { padding: 60px 22px; }
+            .entry { margin-bottom: 60px; }
+            .entry p { font-size: 16px; line-height: 1.95; }
+            .clue-card { padding: 20px 22px; }
+            .challenge { padding: 80px 20px; }
+            .challenge-frame { padding: 40px 24px; }
+            .vault { padding: 80px 20px; }
+            .bone-divider { margin: 44px auto; }
+            .flag-format { font-size: 13px; padding: 10px 16px; }
+        }
+
+        @media (max-width: 400px) {
+            .site-name { font-size: 17px; }
+            .nav-links { gap: 13px; font-size: 12px; }
+            .hero { padding: 100px 20px 70px; }
+            .hero h1 { font-size: 38px; }
+            .hero-sub { font-size: 16px; }
+            .entry h2 { font-size: 26px; }
+            .vault h2 { font-size: 28px; }
+            .challenge-frame h2 { font-size: 23px; }
+            .challenge-frame { padding: 36px 20px; }
+            .flag-format { font-size: 12px; letter-spacing: -0.02em; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before { animation: none; }
+            .scroll-cue { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!--
+   إلى الفضولي الذي يقرأ الشيفرة:
+   أنت تعرف الآن أين تبحث. الأسرار لا تُخبّأ دائمًا في الظاهر.
+-->
+
+<div class="wrap">
+
+<nav>
+    <div class="site-name">مذكرات <span class="accent">جوزيف</span></div>
+    <div class="nav-links">
+        <a href="#story">القصة</a>
+        <a href="#vault">المكان</a>
+        <a href="#challenge">اللغز</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-eyebrow">مذكرات رحلة · باريس</div>
+    <h1>تحت المدينة،<br>حيث ينام <em>الصمت</em></h1>
+    <p class="hero-sub">
+        أكتب هنا عن رحلة أخطط لها منذ شهور. صديقي جوليان قادم من إيطاليا مع ابنه لورانس، ولنا موعد مع مكان لا يشبه أي مكان آخر على وجه الأرض.
+    </p>
+    <div class="scroll-cue">
+        <span>انزل معي</span>
+        <div class="arrow"></div>
+    </div>
+</header>
+
+<!-- JOURNAL -->
+<section class="journal" id="story">
+
+    <article class="entry">
+        <div class="entry-meta"><span class="dot"></span> المدخل الأول · انتظار الأصدقاء</div>
+        <h2>ضيوف من <em>إيطاليا</em></h2>
+        <p>
+            بعد طول انتظار، أخيرًا اقترب الموعد. جوليان — صديق العمر — قرر يزورني هالمرة، ومعاه ابنه لورانس، اللي صار مراهقًا طويلًا لدرجة إني بالكاد عرفته في آخر صورة أرسلها لي.
+        </p>
+        <p>
+            خططنا لأشياء كثيرة نشوفها سوا. متاحف، مقاهي قديمة، وشوارع نتمشى فيها بلا هدف. لكن من بين كل الأماكن، كان هناك <span class="highlight">مكان واحد</span> نتشوق لرؤيته أكثر من أي شيء آخر.
+        </p>
+    </article>
+
+    <div class="bone-divider">
+        <div class="line"></div>
+        <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
+            <circle cx="12" cy="10" r="6" stroke="#C9B896" stroke-width="1.2"/>
+            <circle cx="9.5" cy="9" r="1.3" fill="#C9B896"/>
+            <circle cx="14.5" cy="9" r="1.3" fill="#C9B896"/>
+            <path d="M10 13 L11 15 L12 13 L13 15 L14 13" stroke="#C9B896" stroke-width="0.8"/>
+            <rect x="22" y="9" width="16" height="2" rx="1" fill="#C9B896"/>
+            <circle cx="21" cy="10" r="2.2" stroke="#C9B896" stroke-width="1"/>
+            <circle cx="39" cy="10" r="2.2" stroke="#C9B896" stroke-width="1"/>
+            <circle cx="48" cy="10" r="6" stroke="#C9B896" stroke-width="1.2"/>
+            <circle cx="45.5" cy="9" r="1.3" fill="#C9B896"/>
+            <circle cx="50.5" cy="9" r="1.3" fill="#C9B896"/>
+            <path d="M46 13 L47 15 L48 13 L49 15 L50 13" stroke="#C9B896" stroke-width="0.8"/>
+        </svg>
+        <div class="line"></div>
+    </div>
+
+    <article class="entry">
+        <div class="entry-meta"><span class="dot"></span> المدخل الثاني · المكان الذي ننتظره</div>
+        <h2>في أعماق <em>الأرض</em></h2>
+        <p>
+            المكان اللي نبيه مو فوق الأرض. هو في الأسفل، عميقًا تحت واحدة من أشهر مدن العالم. تنزل إليه بدرجات طويلة باردة، ويستقبلك هواء رطب وإضاءة خافتة بالكاد تكشف الطريق.
+        </p>
+
+        <div class="clue-card">
+            <span class="clue-label">من مذكرة جوزيف</span>
+            <p>
+                "قرأت أن ممراته تمتد لمسافات طويلة، وأن على جانبيها تصطف آلاف من بقايا من عاشوا قبل قرون، مرتبة بعناية غريبة. يقولون إن من يدخل يشعر برهبة لا توصف — كأن التاريخ نفسه يهمس في الظلام."
+            </p>
+        </div>
+
+        <p class="pull-quote">
+            "يسمّونه إمبراطورية الموت.<br>وأنا سأدخله مع أعزّ أصدقائي."
+        </p>
+
+        <p>
+            هذا المكان ليس للجميع. لورانس متحمس أكثر منا جميعًا — الشباب في عمره ينجذبون لهذا النوع من الغموض. أما جوليان فيريد أن يفهم قصة المكان، كيف نشأ، ولماذا اختار الناس أن يجمعوا موتاهم هنا.
+        </p>
+    </article>
+
+    <div class="bone-divider">
+        <div class="line"></div>
+        <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
+            <circle cx="30" cy="10" r="6" stroke="#C9B896" stroke-width="1.2"/>
+            <circle cx="27.5" cy="9" r="1.3" fill="#C9B896"/>
+            <circle cx="32.5" cy="9" r="1.3" fill="#C9B896"/>
+            <path d="M28 13 L29 15 L30 13 L31 15 L32 13" stroke="#C9B896" stroke-width="0.8"/>
+            <rect x="4" y="9" width="18" height="2" rx="1" fill="#C9B896"/>
+            <rect x="38" y="9" width="18" height="2" rx="1" fill="#C9B896"/>
+        </svg>
+        <div class="line"></div>
+    </div>
+
+    <article class="entry">
+        <div class="entry-meta"><span class="dot"></span> المدخل الثالث · الحساب</div>
+        <h2>وفّرت ما <em>يكفي</em></h2>
+        <p>
+            عشان أضمن إن الرحلة تصير، بدأت أوفّر من زمان. دخلت على الموقع الرسمي للمكان وحسبت تكلفة دخولنا نحن الثلاثة — أنا وجوليان ولورانس.
+        </p>
+        <p>
+            الرقم اللي طلع كان <span class="highlight">٧٧ يورو</span> لنا جميعًا. مبلغ بسيط مقابل ذكرى ما تُنسى. خبّأت المبلغ في ظرف صغير، وكتبت عليه اسم المكان، وانتظرت وصولهم.
+        </p>
+        <p>
+            الآن كل شيء جاهز. الظرف، التذاكر، والحماس. باقي بس يوصلون.
+        </p>
+    </article>
+
+</section>
+
+<!-- THE VAULT -->
+<section class="vault" id="vault">
+    <div class="vault-inner">
+        <div class="vault-label">المكان</div>
+        <h2>ممرّ واحد يفصلك<br>عن <em>ستة ملايين</em> قصة</h2>
+
+        <div class="corridor">
+            <svg width="100%" height="240" viewBox="0 0 700 240" fill="none" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="depth" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#1E1A16"/>
+                        <stop offset="100%" stop-color="#0A0908"/>
+                    </linearGradient>
+                    <radialGradient id="lantern" cx="50%" cy="35%" r="60%">
+                        <stop offset="0%" stop-color="#B8945A" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="#B8945A" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- Vaulted arch tunnel receding into darkness -->
+                <rect width="700" height="240" fill="url(#depth)"/>
+                <ellipse cx="350" cy="120" rx="300" ry="200" fill="url(#lantern)"/>
+
+                <!-- Receding arches -->
+                <path d="M100 240 L100 90 Q350 -20 600 90 L600 240" stroke="#2A2420" stroke-width="2" fill="none"/>
+                <path d="M160 240 L160 105 Q350 20 540 105 L540 240" stroke="#332B24" stroke-width="1.5" fill="none"/>
+                <path d="M220 240 L220 120 Q350 55 480 120 L480 240" stroke="#3D3329" stroke-width="1.2" fill="none"/>
+                <path d="M275 240 L275 135 Q350 90 425 135 L425 240" stroke="#4A3E30" stroke-width="1" fill="none"/>
+
+                <!-- Bone rows lining the walls (stylized, respectful) -->
+                <g opacity="0.6">
+                    <!-- Left wall skulls -->
+                    <circle cx="120" cy="150" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="118" cy="149" r="1" fill="#C9B896"/>
+                    <circle cx="122" cy="149" r="1" fill="#C9B896"/>
+                    <circle cx="135" cy="165" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="133" cy="164" r="1" fill="#C9B896"/>
+                    <circle cx="137" cy="164" r="1" fill="#C9B896"/>
+                    <circle cx="115" cy="180" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="113" cy="179" r="1" fill="#C9B896"/>
+                    <circle cx="117" cy="179" r="1" fill="#C9B896"/>
+                    <!-- Right wall skulls -->
+                    <circle cx="580" cy="150" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="578" cy="149" r="1" fill="#C9B896"/>
+                    <circle cx="582" cy="149" r="1" fill="#C9B896"/>
+                    <circle cx="565" cy="165" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="563" cy="164" r="1" fill="#C9B896"/>
+                    <circle cx="567" cy="164" r="1" fill="#C9B896"/>
+                    <circle cx="585" cy="180" r="7" stroke="#C9B896" stroke-width="1"/>
+                    <circle cx="583" cy="179" r="1" fill="#C9B896"/>
+                    <circle cx="587" cy="179" r="1" fill="#C9B896"/>
+                    <!-- Stacked long bones -->
+                    <rect x="105" y="195" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                    <rect x="105" y="202" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                    <rect x="105" y="209" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                    <rect x="550" y="195" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                    <rect x="550" y="202" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                    <rect x="550" y="209" width="45" height="3" rx="1.5" fill="#C9B896"/>
+                </g>
+
+                <!-- Distant lantern glow at the end of the tunnel -->
+                <circle cx="350" cy="120" r="3" fill="#B8945A" opacity="0.8"/>
+                <circle cx="350" cy="120" r="8" fill="#B8945A" opacity="0.2"/>
+            </svg>
+        </div>
+
+        <p class="vault-desc">
+            "قف. هنا إمبراطورية الموت."<br>
+            — العبارة المنقوشة فوق المدخل، تستقبل كل من يجرؤ على النزول.
+        </p>
+    </div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="challenge" id="challenge">
+    <div class="challenge-frame">
+        <div class="challenge-icon">🔍</div>
+        <div class="label">اللغز</div>
+        <h2>
+            ما اسم هذا المكان الذي كان جوزيف<br>
+            يدّخر <em>٧٧ يورو</em> لزيارته<br>
+            مع جوليان ولورانس؟
+        </h2>
+        <p class="hint">
+            المكان حقيقي، تحت مدينة مشهورة. الأوصاف في المذكرات كلها خيوط — اجمعها، وابحث.
+        </p>
+        <div class="flag-format">CODED{ اسم_المكان }</div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-name">مذكرات جوزيف</div>
+    <p class="footer-note">
+        مدونة شخصية أوثّق فيها رحلاتي وأصدقائي. بعض الأماكن لا تُنسى، وبعض الأسرار تنتظر من يبحث عنها في المكان الصحيح.
+    </p>
+    <div class="footer-sig">JOSEPH'S JOURNAL · 2025 · PARIS</div>
+</footer>
+
+</div>
+
+<!--
+   ملاحظة أخيرة:
+   لم أنسَ أن أنظّف ملاحظاتي الداخلية في أعلى الصفحة... أو ربما نسيت.
+   من يقرأ حتى هنا، يستحق أن يجد ما يبحث عنه.
+-->
+
+</body>
+</html>
